@@ -1,8 +1,8 @@
 {
-  "name": "dart-full-coverage",
-  "version": "1.0.0",
+  "name": "@stelynx/dart-full-coverage",
+  "version": "1.0.1",
   "private": false,
-  "description": "A GitHub Actions action for allowing coverage test tool to find all Dart files",
+  "description": "A GitHub Actions action for allowing coverage test tool to see all Dart files",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -14,12 +14,15 @@
     "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
   },
   "keywords": [
-    "actions",
-    "node",
-    "setup"
+    "dart",
+    "flutter",
+    "coverage",
+    "github",
+    "action"
   ],
   "author": "Stelynx",
   "license": "MIT",
+  "homepage": "https://github.com/stelynx/dart-full-coverage",
   "dependencies": {
     "@actions/core": "^1.2.3"
   },
