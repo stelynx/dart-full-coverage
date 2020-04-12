@@ -1,5 +1,8 @@
 # Dart Full Coverage
 
+![npm](https://img.shields.io/npm/v/@stelynx/dart-full-coverage)
+![GitHub](https://img.shields.io/github/license/stelynx/dart-full-coverage)
+
 Coverage tools like _codecov_ only see the files that were actually triggered by tests. This means
 that a coverage of 100% can easily be a lie, e.g. you can just write a dummy test that does not import
 any files and a coverage tool will ignore all the code base.
@@ -53,3 +56,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 ```
+
+## Contributing
+
+Every contribution is very welcome! Please, see the [CONTRIBUTING guidlines](CONTRIBUTING.md).
