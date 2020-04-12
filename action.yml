@@ -1,0 +1,25 @@
+name: 'Dart Full Coverage'
+description: 'Action for allowing coverage test tool to find all Dart files'
+branding:
+  icon: trending-up
+  color: green
+inputs:
+  package:
+    description: 'Package name as used in imports'
+    required: true
+  ignore:
+    description: 'List of files to ignore, separated by comma'
+    required: false
+    default: ''
+  path:
+    description: 'Path, relative to directory root'
+    required: false
+    default: 'lib'
+  test_file:
+    description: 'Path to test file that will be created, relative to directory root'
+    required: false
+    default: 'test/coverage_helper_test.dart'
+    
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
