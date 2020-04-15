@@ -43,7 +43,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - uses: stelynx/dart-full-coverage@v1.0.2
+      - uses: stelynx/dart-full-coverage@v1.0.3
         with:
           package: egakcap
           ignore: "*_state.dart, do_not_import_me.dart"

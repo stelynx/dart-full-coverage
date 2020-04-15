@@ -88,14 +88,7 @@ function buildCommand(settings) {
     for (const str of settings.ignoreFiles) {
         excludeString += `-and -not -name '${str}' `;
     }
-    return `cd $GITHUB_WORKSPACE &&
-      echo "// ignore_for_file: unused_import" > ${settings.file} &&
-      find ${settings.path} -name '*.dart' ${excludeString.trim()} 
-      | cut -c4-
-      | awk '{printf "import '\\''package:${settings.package}%s'\\'';\\n", $1}' >> ${settings.file} &&
-      echo "void main(){}" >> ${settings.file} &&
-      echo "\nProcessing completed. Output file in ${settings.file}:\n" &&
-      cat ${settings.file}`;
+    return `cd $GITHUB_WORKSPACE && echo "// ignore_for_file: unused_import" > ${settings.file} && find ${settings.path} -name '*.dart' ${excludeString.trim()} | cut -c4- | awk '{printf "import '\\''package:${settings.package}%s'\\'';\\n", $1}' >> ${settings.file} && echo "void main(){}" >> ${settings.file} && echo "\nProcessing completed. Output file in ${settings.file}:\n" && cat ${settings.file}`;
 }
 
 
