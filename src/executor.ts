@@ -1,6 +1,7 @@
 import * as childProcess from 'child_process';
 import * as core from '@actions/core';
 import { InputSettings } from './input-settings';
+import { assert } from 'console';
 
 export function execute(settings: InputSettings): void {
   const cmd = buildCommand(settings);
@@ -26,7 +27,14 @@ function buildCommand(settings: InputSettings): string {
     excludeString += `-and -not -name '${str}' `;
   }
 
-  return `cd $GITHUB_WORKSPACE && echo "// ignore_for_file: unused_import" > ${
+  let changeDirStr = '';
+  if (settings.useGitRoot) {
+    changeDirStr += 'cd $GITHUB_WORKSPACE &&';
+  } else if (settings.mainDir?.length > 0) {
+    changeDirStr += `cd ${settings.mainDir} &&`;
+  }
+
+  return `${changeDirStr} echo "// ignore_for_file: unused_import" > ${
     settings.file
   } && find ${
     settings.path
