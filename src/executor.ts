@@ -1,7 +1,6 @@
 import * as childProcess from 'child_process';
 import * as core from '@actions/core';
 import { InputSettings } from './input-settings';
-import { assert } from 'console';
 
 export function execute(settings: InputSettings): void {
   const cmd = buildCommand(settings);
