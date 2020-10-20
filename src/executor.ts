@@ -26,7 +26,14 @@ function buildCommand(settings: InputSettings): string {
     excludeString += `-and -not -name '${str}' `;
   }
 
-  return `cd $GITHUB_WORKSPACE && echo "// ignore_for_file: unused_import" > ${
+  let changeDirStr = '';
+  if (settings.useGitRoot) {
+    changeDirStr += 'cd $GITHUB_WORKSPACE && ';
+  } else if (settings.mainDir?.length > 0) {
+    changeDirStr += `cd ${settings.mainDir} && `;
+  }
+
+  return `${changeDirStr}echo "// ignore_for_file: unused_import" > ${
     settings.file
   } && find ${
     settings.path

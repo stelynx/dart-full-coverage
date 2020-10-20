@@ -22,7 +22,9 @@ Action has four parameters:
 
 - `package`: The name of your package, the same as you use in imports, e.g. if you import files like
   `import "package:egakcap/some_file.dart";`, then package is `'egakcap'`. This parameter is required.
-- `path`: The relative path to Dart files, by default it is `'lib'`.
+- `use_git_root`: Boolean, whether to `cd` into `$GITHUB_WORKSPACE` at the beginning of the script or not. Defaults to true, set `use_git_root: false` to negate.
+- `main_dir`: If `use_git_root` is set to `false`, you can provide the starting directory where the script should `cd` to. If `use_git_root` is set to `false` and you omit this value, the active directory will not be changed.
+- `path`: The relative path to Dart files, by default it is `'lib'`. Path is relative to either `$GITHUB_WORKSPACE`, or provided directory in `main_dir`, or to the directory the action is being executed in.
 - `test_file`: The name of the dummy file the script will create. The name should lead to where your tests are. The default value is `'test/coverage_helper_test.dart'`.
 - `ignore`: A comma-separated list of files to be ignored and not imported in `test_file`. For example, if you want to skip all files that end with "\_state.dart" or the file is called "do_not_import_me.dart", then set `ignore` to `'*_state.dart, do_not_import_me.dart'`. By default, none of the files will be ignored.
 
