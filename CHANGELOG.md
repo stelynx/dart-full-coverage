@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5
+
+See 1.0.4.
+
 ## 1.0.4
 
 Add `use_git_root` and `main_dir` action parameters.
