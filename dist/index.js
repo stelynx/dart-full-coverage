@@ -84,11 +84,19 @@ function execute(settings) {
 }
 exports.execute = execute;
 function buildCommand(settings) {
+    var _a;
     let excludeString = '';
     for (const str of settings.ignoreFiles) {
         excludeString += `-and -not -name '${str}' `;
     }
-    return `cd $GITHUB_WORKSPACE && echo "// ignore_for_file: unused_import" > ${settings.file} && find ${settings.path} -name '*.dart' ${excludeString.trim()} | cut -c4- | awk '{printf "import '\\''package:${settings.package}%s'\\'';\\n", $1}' >> ${settings.file} && echo "void main(){}" >> ${settings.file} && echo "\nProcessing completed. Output file in ${settings.file}:\n" && cat ${settings.file}`;
+    let changeDirStr = '';
+    if (settings.useGitRoot) {
+        changeDirStr += 'cd $GITHUB_WORKSPACE && ';
+    }
+    else if (((_a = settings.mainDir) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+        changeDirStr += `cd ${settings.mainDir} && `;
+    }
+    return `${changeDirStr}echo "// ignore_for_file: unused_import" > ${settings.file} && find ${settings.path} -name '*.dart' ${excludeString.trim()} | cut -c4- | awk '{printf "import '\\''package:${settings.package}%s'\\'';\\n", $1}' >> ${settings.file} && echo "void main(){}" >> ${settings.file} && echo "\nProcessing completed. Output file in ${settings.file}:\n" && cat ${settings.file}`;
 }
 
 
@@ -464,11 +472,15 @@ const core = __importStar(__webpack_require__(470));
  */
 function getInputs() {
     const ignore = core.getInput('ignore');
+    const useGitWorkspaceRoot = core.getInput('use_git_root');
+    const mainDirectory = core.getInput('main_dir');
     const relativePath = core.getInput('path');
     const packageName = core.getInput('package');
     const testFile = core.getInput('test_file');
     const inputSettings = {
         ignoreFiles: ignore.split(',').map((value) => value.trim()),
+        useGitRoot: useGitWorkspaceRoot === 'false' ? false : true,
+        mainDir: mainDirectory,
         path: relativePath.trim(),
         package: packageName,
         file: testFile

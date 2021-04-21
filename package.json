@@ -1,6 +1,6 @@
 {
   "name": "@stelynx/dart-full-coverage",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "description": "A GitHub Actions action for allowing coverage test tool to see all Dart files",
   "main": "lib/main.js",
