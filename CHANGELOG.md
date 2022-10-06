@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+
+Ignore dart files containing "part of" directive by defauly, since these files cannot be imported.
+
 ## 1.0.5
 
 See 1.0.4.
