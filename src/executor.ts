@@ -1,5 +1,5 @@
-import * as childProcess from 'child_process';
 import * as core from '@actions/core';
+import * as childProcess from 'child_process';
 import { InputSettings } from './input-settings';
 
 export function execute(settings: InputSettings): void {
@@ -37,7 +37,7 @@ function buildCommand(settings: InputSettings): string {
     settings.file
   } && find ${
     settings.path
-  } -name '*.dart' ${excludeString.trim()} | cut -c4- | awk '{printf "import '\\''package:${
+  } -name '*.dart' ${excludeString.trim()} -exec grep -L "part of" {} \\; | cut -c4- | awk '{printf "import '\\''package:${
     settings.package
   }%s'\\'';\\n", $1}' >> ${settings.file} && echo "void main(){}" >> ${
     settings.file

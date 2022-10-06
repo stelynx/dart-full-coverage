@@ -70,8 +70,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const childProcess = __importStar(__webpack_require__(129));
 const core = __importStar(__webpack_require__(470));
+const childProcess = __importStar(__webpack_require__(129));
 function execute(settings) {
     const cmd = buildCommand(settings);
     core.info(`\nExecuting command:\n${cmd}`);
@@ -96,7 +96,7 @@ function buildCommand(settings) {
     else if (((_a = settings.mainDir) === null || _a === void 0 ? void 0 : _a.length) > 0) {
         changeDirStr += `cd ${settings.mainDir} && `;
     }
-    return `${changeDirStr}echo "// ignore_for_file: unused_import" > ${settings.file} && find ${settings.path} -name '*.dart' ${excludeString.trim()} | cut -c4- | awk '{printf "import '\\''package:${settings.package}%s'\\'';\\n", $1}' >> ${settings.file} && echo "void main(){}" >> ${settings.file} && echo "\nProcessing completed. Output file in ${settings.file}:\n" && cat ${settings.file}`;
+    return `${changeDirStr}echo "// ignore_for_file: unused_import" > ${settings.file} && find ${settings.path} -name '*.dart' ${excludeString.trim()} -exec grep -L "part of" {} \\; | cut -c4- | awk '{printf "import '\\''package:${settings.package}%s'\\'';\\n", $1}' >> ${settings.file} && echo "void main(){}" >> ${settings.file} && echo "\nProcessing completed. Output file in ${settings.file}:\n" && cat ${settings.file}`;
 }
 
 
